@@ -52,10 +52,12 @@ ponder.on("LetsCommit:CreateEvent", ({event, context}) => {
             id: event.args.eventId,
             title: event.args.title,
             description: event.args.description,
+            location: event.args.location,
             imageUri: event.args.imageUri,
             priceAmount: event.args.priceAmount,
             commitmentAmount: event.args.commitmentAmount,
             totalSession: event.args.totalSession,
+            maxParticipant: event.args.maxParticipant,
             startSaleDate: event.args.startSaleDate,
             endSaleDate: event.args.endSaleDate,
             organizer: event.args.organizer,
@@ -88,6 +90,13 @@ ponder.on("LetsCommit:CreateSession", ({event, context}) => {
             // attendToken: '0x0'
         })
         .onConflictDoNothing();
+
+});
+
+ponder.on("LetsCommit:GenerateSessionToken", ({event, context}) => {
+    context.db
+        .update(createSession, {id: event.args.eventId, session: event.args.session})
+        .set({attendToken: event.args.token})
 
 });
 

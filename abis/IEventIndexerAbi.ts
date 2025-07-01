@@ -22,11 +22,11 @@ export const IEventIndexerAbi = [{
         "indexed": false,
         "internalType": "string"
     }, {"name": "description", "type": "string", "indexed": false, "internalType": "string"}, {
-        "name": "imageUri",
+        "name": "location",
         "type": "string",
         "indexed": false,
         "internalType": "string"
-    }, {
+    }, {"name": "imageUri", "type": "string", "indexed": false, "internalType": "string"}, {
         "name": "priceAmount",
         "type": "uint256",
         "indexed": false,
@@ -37,6 +37,11 @@ export const IEventIndexerAbi = [{
         "indexed": false,
         "internalType": "uint256"
     }, {"name": "totalSession", "type": "uint8", "indexed": false, "internalType": "uint8"}, {
+        "name": "maxParticipant",
+        "type": "uint8",
+        "indexed": false,
+        "internalType": "uint8"
+    }, {
         "name": "startSaleDate",
         "type": "uint256",
         "indexed": false,
@@ -77,6 +82,16 @@ export const IEventIndexerAbi = [{
         "indexed": false,
         "internalType": "uint256"
     }],
+    "anonymous": false
+}, {
+    "type": "event",
+    "name": "GenerateSessionToken",
+    "inputs": [{"name": "eventId", "type": "uint256", "indexed": true, "internalType": "uint256"}, {
+        "name": "session",
+        "type": "uint8",
+        "indexed": true,
+        "internalType": "uint8"
+    }, {"name": "token", "type": "string", "indexed": false, "internalType": "string"}],
     "anonymous": false
 }, {
     "type": "event",

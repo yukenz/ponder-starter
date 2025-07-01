@@ -15,10 +15,12 @@ export const createEvent = onchainTable("event", (t) => ({
     id: t.bigint().primaryKey(),
     title: t.varchar().notNull(),
     description: t.varchar().notNull(),
+    location: t.varchar().notNull(),
     imageUri: t.varchar().notNull(),
     priceAmount: t.bigint().notNull(),
     commitmentAmount: t.bigint().notNull(),
     totalSession: t.int8({mode: "number"}).notNull(),
+    maxParticipant: t.int8({mode: "number"}).notNull(), // Session Number
     startSaleDate: t.bigint().notNull(),
     endSaleDate: t.bigint().notNull(),
     organizer: t.hex().notNull(),
@@ -46,7 +48,7 @@ export const createSession = onchainTable("session", (t) => ({
     title: t.varchar().notNull(),
     startSessionTime: t.bigint().notNull(),
     endSessionTime: t.bigint().notNull(),
-    attendToken: t.bytes(),
+    attendToken: t.varchar(),
 }), (table) => ({ // Constraints & indexes
     sessionPk: primaryKey({columns: [table.id, table.session]}),
 }));
