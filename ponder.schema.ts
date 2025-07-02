@@ -13,10 +13,10 @@ export const account = onchainTable("account", (t) => ({
 
 export const createEvent = onchainTable("event", (t) => ({
     id: t.bigint().primaryKey(),
-    title: t.varchar().notNull(),
-    description: t.varchar().notNull(),
-    location: t.varchar().notNull(),
-    imageUri: t.varchar().notNull(),
+    title: t.varchar(),
+    description: t.varchar(),
+    location: t.varchar(),
+    imageUri: t.varchar(),
     priceAmount: t.bigint().notNull(),
     commitmentAmount: t.bigint().notNull(),
     totalSession: t.int8({mode: "number"}).notNull(),
@@ -53,7 +53,7 @@ export const createSession = onchainTable("session", (t) => ({
     sessionPk: primaryKey({columns: [table.id, table.session]}),
 }));
 
-export const attendSessionEvent = onchainTable("attend_event_ession", (t) => ({
+export const attendSessionEvent = onchainTable("attend_event_session", (t) => ({
     id: t.bigint(), // Event ID
     session: t.int8({mode: "number"}).notNull(), // Session Number
     participant: t.hex().notNull(), // Participant Address

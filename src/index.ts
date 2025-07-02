@@ -44,16 +44,14 @@ import {
 //
 // });
 
+
 ponder.on("LetsCommit:CreateEvent", ({event, context}) => {
 
+    // Insert Event Context
     context.db
         .insert(eventTable)
         .values({
             id: event.args.eventId,
-            title: event.args.title,
-            description: event.args.description,
-            location: event.args.location,
-            imageUri: event.args.imageUri,
             priceAmount: event.args.priceAmount,
             commitmentAmount: event.args.commitmentAmount,
             totalSession: event.args.totalSession,
@@ -63,7 +61,21 @@ ponder.on("LetsCommit:CreateEvent", ({event, context}) => {
             organizer: event.args.organizer,
         })
         .onConflictDoNothing();
+});
 
+ponder.on("LetsCommit:CreateEventMetadata", ({event, context}) => {
+
+    // Insert Event Metadata
+    context.db
+        .update(eventTable, {id: event.args.eventId})
+        .set({
+            title: event.args.title,
+            description: event.args.description,
+            location: event.args.location,
+            imageUri: event.args.imageUri,
+        })
+
+    // Insert Event Tags
     event.args.tag
         .filter((tag) => tag !== '')
         .forEach((tag, index) => {
@@ -76,9 +88,12 @@ ponder.on("LetsCommit:CreateEvent", ({event, context}) => {
                 })
                 .onConflictDoNothing()
         })
+
 });
 
 ponder.on("LetsCommit:CreateSession", ({event, context}) => {
+
+    // Insert Session Created w/ Event
     context.db
         .insert(createSession)
         .values({
@@ -94,6 +109,8 @@ ponder.on("LetsCommit:CreateSession", ({event, context}) => {
 });
 
 ponder.on("LetsCommit:GenerateSessionToken", ({event, context}) => {
+
+    // Insert Session Token Generated
     context.db
         .update(createSession, {id: event.args.eventId, session: event.args.session})
         .set({attendToken: event.args.token})
@@ -103,6 +120,7 @@ ponder.on("LetsCommit:GenerateSessionToken", ({event, context}) => {
 
 ponder.on("LetsCommit:EnrollEvent", ({event, context}) => {
 
+    // Insert Participant when enrolling an Event
     context.db
         .insert(enrollEvent)
         .values({
@@ -114,6 +132,7 @@ ponder.on("LetsCommit:EnrollEvent", ({event, context}) => {
 
 });
 
+// Insert Participant when attending an Event
 ponder.on("LetsCommit:AttendEventSession", ({event, context}) => {
 
     context.db

@@ -17,16 +17,11 @@ export const IEventIndexerAbi = [{
     "type": "event",
     "name": "CreateEvent",
     "inputs": [{"name": "eventId", "type": "uint256", "indexed": true, "internalType": "uint256"}, {
-        "name": "title",
-        "type": "string",
-        "indexed": false,
-        "internalType": "string"
-    }, {"name": "description", "type": "string", "indexed": false, "internalType": "string"}, {
-        "name": "location",
-        "type": "string",
-        "indexed": false,
-        "internalType": "string"
-    }, {"name": "imageUri", "type": "string", "indexed": false, "internalType": "string"}, {
+        "name": "organizer",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+    }, {
         "name": "priceAmount",
         "type": "uint256",
         "indexed": false,
@@ -46,12 +41,27 @@ export const IEventIndexerAbi = [{
         "type": "uint256",
         "indexed": false,
         "internalType": "uint256"
-    }, {"name": "endSaleDate", "type": "uint256", "indexed": false, "internalType": "uint256"}, {
-        "name": "organizer",
-        "type": "address",
+    }, {"name": "endSaleDate", "type": "uint256", "indexed": false, "internalType": "uint256"}],
+    "anonymous": false
+}, {
+    "type": "event",
+    "name": "CreateEventMetadata",
+    "inputs": [{"name": "eventId", "type": "uint256", "indexed": true, "internalType": "uint256"}, {
+        "name": "title",
+        "type": "string",
         "indexed": false,
-        "internalType": "address"
-    }, {"name": "tag", "type": "string[5]", "indexed": false, "internalType": "string[5]"}],
+        "internalType": "string"
+    }, {"name": "description", "type": "string", "indexed": false, "internalType": "string"}, {
+        "name": "location",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+    }, {"name": "imageUri", "type": "string", "indexed": false, "internalType": "string"}, {
+        "name": "tag",
+        "type": "string[5]",
+        "indexed": false,
+        "internalType": "string[5]"
+    }],
     "anonymous": false
 }, {
     "type": "event",
@@ -127,6 +137,21 @@ export const IEventIndexerAbi = [{
         "indexed": false,
         "internalType": "address"
     }, {"name": "claimAmount", "type": "uint256", "indexed": false, "internalType": "uint256"}],
+    "anonymous": false
+}, {
+    "type": "event",
+    "name": "SetSessionCode",
+    "inputs": [{"name": "eventId", "type": "uint256", "indexed": true, "internalType": "uint256"}, {
+        "name": "session",
+        "type": "uint8",
+        "indexed": true,
+        "internalType": "uint8"
+    }, {"name": "organizer", "type": "address", "indexed": false, "internalType": "address"}, {
+        "name": "releasedAmount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+    }],
     "anonymous": false
 }] as const;
 
